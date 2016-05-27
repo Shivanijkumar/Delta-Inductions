@@ -1,0 +1,93 @@
+<html>
+<head>
+<style>
+body{text-align: center;background:lightsteelblue;}
+h1{color: black;align:center;}
+#clockdiv{align:center;color: white;}
+#clockdiv>div{align:center;border-radius: 2px;background:steelblue;display: inline-block;}
+</style>
+</head>
+<body>
+<form>
+Total Time:
+<input type="number" id="Mins">
+<input type="number" id="Secs">
+<button type="button" onClick="initialize('clockdiv')">Submit</button>
+</form>
+<h1><font face="Comic Sans MS">Rocket Launch</font></h1>
+<h2><font face="Comic Sans MS">Time left for the rocket launch</font></h2>
+<p><img align="center" src="img.jpg" alt="rocket launch" height=200px width=300px></p>
+<p>
+<button type="play" onClick="starttimer()">Play</button>
+<button type="pause" onClick="stoptimer()">Pause</button>
+<button type="reset" onClick="resettimer()">Reset</button>
+</p>
+
+<p>
+<div id="clockdiv">
+  <div>
+    <span class="minutes"></span>
+    <div class="text">Minutes</div>
+  </div>
+  <div>
+    <span class="seconds"></span>
+    <div class="text">Seconds</div>
+  </div>
+</div>
+</p>
+<script type="text/javascript">
+var MINUTES;
+var SECONDS;
+var minutesSpan;
+var secondsSpan;
+var x;
+
+ function updateclock()
+{
+minutesSpan.innerHTML = ('0'+ MINUTES).slice(-2);
+secondsSpan.innerHTML = ('0'+ SECONDS).slice(-2);
+if(SECONDS==0 && MINUTES>0)
+{
+MINUTES=MINUTES-1;
+SECONDS='59';
+}
+else if(SECONDS==0 && MINUTES<=0)
+{
+exit();
+}
+else
+SECONDS=SECONDS-1;
+}
+function initialize(id) {
+MINUTES=document.getElementById("Mins").value;
+SECONDS=document.getElementById("Secs").value;
+  var clock = document.getElementById(id);
+ minutesSpan = clock.querySelector(".minutes");
+    secondsSpan = clock.querySelector(".seconds");
+  updateclock();
+ 
+   x=setInterval(updateclock, 1000);
+}
+
+function stoptimer()
+{
+clearInterval(x);
+}
+function starttimer()
+{
+updateclock();
+x=setInterval(updateclock,1000);
+
+}
+function resettimer()
+{
+clearInterval(x);
+MINUTES=document.getElementById("Mins").value;
+SECONDS=document.getElementById("Secs").value;
+updateclock();
+x=setInterval(updateclock,1000);
+}
+
+</script>
+</body>
+</html>

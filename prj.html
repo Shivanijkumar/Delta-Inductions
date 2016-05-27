@@ -1,0 +1,77 @@
+<html>
+<head>
+<style>
+body{text-align: center;background:lightsteelblue;}
+h1{align:center;color:black;}
+#clockdiv{align:center;color: white;}
+#clockdiv>div{align:center;border-radius: 2px;background:steelblue;display: inline-block;}
+</style>
+</head>
+<body>
+<h1><font face="Comic Sans MS">Rocket Launch</font></h1>
+<h1><font face="Comic Sans MS">On May 30,2016 </font></h1>
+<h2><font face="Comic Sans MS">Time left for the rocket launch</font></h2>
+<p><img align="center" src="img.jpg" alt="rocket launch" height=200px width=300px>
+</p>
+<p>
+<div id="clockdiv">
+<div>
+    <span class="days"></span>
+    <div class="text">Days</div>
+  </div>
+
+ <div>
+ <span class="hours"></span>
+    <div class="text">Hours</div>
+  </div>
+  <div>
+    <span class="minutes"></span>
+    <div class="text">Minutes</div>
+  </div>
+  <div>
+    <span class="seconds"></span>
+    <div class="text">Seconds</div>
+  </div>
+</div>
+</p>
+<script type="text/javascript">
+function TimeRemaining(deadline) {                           //calculate the time remaining
+  var t = Date.parse(deadline) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+function initialize(id, deadline) {              //to initialize the clock
+  var clock = document.getElementById(id);
+  var daysSpan = clock.querySelector(".days");
+  var hoursSpan = clock.querySelector(".hours");
+  var minutesSpan = clock.querySelector(".minutes");
+  var secondsSpan = clock.querySelector(".seconds");
+
+  function updateclock() {                      //to update the clock with the time remaining
+    var t = TimeRemaining(deadline);
+    daysSpan.innerHTML = t.days;
+    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+  }
+
+  updateclock();
+ setInterval(updateclock, 1000);
+}
+
+var deadline = 'May 30 2016';
+initialize('clockdiv', deadline);
+</script>
+</body>
+</html>
